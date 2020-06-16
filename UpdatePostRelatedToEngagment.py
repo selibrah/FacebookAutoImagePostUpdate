@@ -43,7 +43,7 @@ chrome_options.add_experimental_option("prefs",prefs)
 
 # This line make the script run without opening the browser
 
-chrome_options.add_argument("--headless")
+#chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(chrome_options=chrome_options)
 
 def waitf(selc, tim,typ):
