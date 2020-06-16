@@ -120,9 +120,6 @@ print("# Start checking for Reactions or Comments number changes to update the p
 
 while(1):
     tim = time.time()
-'''    try:
-        
-        ''' 
     print("# Get old Reaction and comments from Saved File")
 
     with open('objs.pkl','rb') as f:  # Python 3: open(..., 'rb')
@@ -194,8 +191,3 @@ while(1):
         print("#Remove Image")
 
         os.remove(os.getcwd()+"/magi.png")
-
-    '''except Exception as e:
-                    print(e)
-                    driver.get(PostLink)
-                    sleep(3)'''
