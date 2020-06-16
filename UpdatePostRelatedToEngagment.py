@@ -126,18 +126,13 @@ while(1):
     tim = time.time()
     try:
 
-        print("# Get old Reaction and comments from Saved File")
 
         with open('objs.pkl','rb') as f:  # Python 3: open(..., 'rb')
             Old_React_Number, Old_Cmnt_Number = pickle.load(f)
         try:
-
-            print("# Get the Current Reactions Number")
             
             Current_React_Number = waitf((By.CLASS_NAME,"_81hb"),10,"presence").text
-            
-            print("# Get the Current Comments Number")
-            
+                        
             CmntInfo = waitf((By.XPATH,"//a[@class='_3hg- _42ft']"),10,"presence").text
             Current_Cmnt_Number = (CmntInfo.split())[0]
 
@@ -146,15 +141,12 @@ while(1):
             print(e)
             Current_React_Number = Old_React_Number
             Current_Cmnt_Number = Old_Cmnt_Number
-            
-        print("# Check if The Number of Reaction and Comments is changed")
+
 
         if Current_React_Number != Old_React_Number or Current_Cmnt_Number != Old_Cmnt_Number:
 
             print("# Start Updating The Post ")
             
-            print("Go")
-
             print("# Click  The post options button")
             
             waitf((By.XPATH,"//a[@class='_4xev _p']"), 10, "clickable").click()
