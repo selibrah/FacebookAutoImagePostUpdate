@@ -43,7 +43,7 @@ chrome_options.add_experimental_option("prefs",prefs)
 
 # This line make the script run without opening the browser
 
-#chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(chrome_options=chrome_options)
 
 def waitf(selc, tim,typ):
@@ -78,14 +78,15 @@ def FBLogin():
         .send_keys("elibrahimi.soufiane@gmail.com")
 
     # Input The PassWord
-
+    print("Your pass word")
+    pss = input()
     driver.find_element_by_xpath("//*[@id=\"pass\"]")\
-        .send_keys("Zaza**1245")
+        .send_keys(pss)
 
     # Click The login button
-
     driver.find_element_by_xpath('//*[@id="u_0_b"]')\
         .click()
+
 
 def AddTextToImage(Current_React_Number, Current_Cmnt_Number):
     astr = "Had el post fih " + Current_React_Number + " React And " + Current_Cmnt_Number + " Cmnt."
@@ -104,12 +105,15 @@ def AddTextToImage(Current_React_Number, Current_Cmnt_Number):
 
 print("FBLogin")
 FBLogin()
+sleep(4)
+mynm = waitf((By.XPATH,"//span[@class='_1vp5']"),10,"presence").text
+print(mynm)
 
 # Go to the post page
 
 PostLink = "https://www.facebook.com/sofiane.elibrahimi/posts/1960049930805793"
 print("go to post")
-sleep(4)
+
 driver.get(PostLink)
 #waitf((By.CLASS_NAME,"_81hb"),10,"presence")
 sleep(4)
@@ -136,12 +140,13 @@ while(1):
             
             CmntInfo = waitf((By.XPATH,"//a[@class='_3hg- _42ft']"),10,"presence").text
             Current_Cmnt_Number = (CmntInfo.split())[0]
+
         except Exception as e:
             print("Get Post Info Exception :")
             print(e)
             Current_React_Number = Old_React_Number
             Current_Cmnt_Number = Old_Cmnt_Number
-
+            
         print("# Check if The Number of Reaction and Comments is changed")
 
         if Current_React_Number != Old_React_Number or Current_Cmnt_Number != Old_Cmnt_Number:
