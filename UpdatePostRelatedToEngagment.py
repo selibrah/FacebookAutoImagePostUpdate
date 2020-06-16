@@ -120,81 +120,82 @@ print("# Start checking for Reactions or Comments number changes to update the p
 
 while(1):
     tim = time.time()
+'''    try:
+        
+        ''' 
+    print("# Get old Reaction and comments from Saved File")
+
+    with open('objs.pkl','rb') as f:  # Python 3: open(..., 'rb')
+        Old_React_Number, Old_Cmnt_Number = pickle.load(f)
     try:
 
-        print("# Get old Reaction and comments from Saved File")
-
-        with open('objs.pkl','rb') as f:  # Python 3: open(..., 'rb')
-            Old_React_Number, Old_Cmnt_Number = pickle.load(f)
-        try:
-
-            print("# Get the Current Reactions Number")
-            
-            Current_React_Number = waitf((By.CLASS_NAME,"_81hb"),10,"presence").text
-            
-            print("# Get the Current Comments Number")
-            
-            CmntInfo = waitf((By.XPATH,"//a[@class='_3hg- _42ft']"),10,"presence").text
-            Current_Cmnt_Number = (CmntInfo.split())[0]
-        except Exception as e:
-            print("Get Post Info Exception :")
-            print(e)
-            Current_React_Number = Old_React_Number
-            Current_Cmnt_Number = Old_Cmnt_Number
-
-        print("# Check if The Number of Reaction and Comments is changed")
-
-        if Current_React_Number != Old_React_Number or Current_Cmnt_Number != Old_Cmnt_Number:
-
-            print("# Start Updating The Post ")
-            
-            print("Go")
-
-            print("# Click  The post options button")
-            
-            waitf((By.XPATH,"//a[@class='_4xev _p']"), 10, "clickable").click()
-
-            print("# Click THe Edit post")
-
-            waitf((By.LINK_TEXT,"Edit post"), 10, "clickable").click()
-
-            print("# Edit The Text in the image")
-
-            AddTextToImage(Current_React_Number, Current_Cmnt_Number)
-
-            print("# Wait for The post editing section to appear")
-
-            waitf((By.XPATH,"//button[@class='_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft']"), 10, "clickable")
-
-            print("# Upload the image")
-
-            active_ele = driver.find_element_by_xpath("//input[@class='_n _5f0v']")
-            active_ele.send_keys(os.getcwd()+"/magi.png")
-
-            print("# Remove The old image")
-
-            element = driver.find_element_by_xpath("//button[@title='Remove photo']")
-            driver.execute_script("arguments[0].click();", element)
-
-            print("# Save the post")
-            waitf((By.XPATH,"//button[@class='_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft']"), 10, "clickable").click()
-            print("Edited")
-            print(time.time() - tim)
-            print("# Wait for The post editing section to disappear")
-
-            wait = WebDriverWait(driver, 10)
-            element = wait.until_not(ec.presence_of_element_located((By.XPATH,"//div[@class='_2dck _4-u3  _57d8']")))
-
-            print("#Save old Reaction and comments from Saved File")
-
-            with open('objs.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
-                pickle.dump([Current_React_Number, Current_Cmnt_Number], f)
-
-            print("#Remove Image")
-
-            os.remove(os.getcwd()+"/magi.png")
-
+        print("# Get the Current Reactions Number")
+        
+        Current_React_Number = waitf((By.CLASS_NAME,"_81hb"),10,"presence").text
+        
+        print("# Get the Current Comments Number")
+        
+        CmntInfo = waitf((By.XPATH,"//a[@class='_3hg- _42ft']"),10,"presence").text
+        Current_Cmnt_Number = (CmntInfo.split())[0]
     except Exception as e:
+        print("Get Post Info Exception :")
         print(e)
-        driver.get(PostLink)
-        sleep(3)
+        Current_React_Number = Old_React_Number
+        Current_Cmnt_Number = Old_Cmnt_Number
+
+    print("# Check if The Number of Reaction and Comments is changed")
+
+    if Current_React_Number != Old_React_Number or Current_Cmnt_Number != Old_Cmnt_Number:
+
+        print("# Start Updating The Post ")
+        
+        print("Go")
+
+        print("# Click  The post options button")
+        
+        waitf((By.XPATH,"//a[@class='_4xev _p']"), 10, "clickable").click()
+
+        print("# Click THe Edit post")
+
+        waitf((By.LINK_TEXT,"Edit post"), 10, "clickable").click()
+
+        print("# Edit The Text in the image")
+
+        AddTextToImage(Current_React_Number, Current_Cmnt_Number)
+
+        print("# Wait for The post editing section to appear")
+
+        waitf((By.XPATH,"//button[@class='_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft']"), 10, "clickable")
+
+        print("# Upload the image")
+
+        active_ele = driver.find_element_by_xpath("//input[@class='_n _5f0v']")
+        active_ele.send_keys(os.getcwd()+"/magi.png")
+
+        print("# Remove The old image")
+
+        element = driver.find_element_by_xpath("//button[@title='Remove photo']")
+        driver.execute_script("arguments[0].click();", element)
+
+        print("# Save the post")
+        waitf((By.XPATH,"//button[@class='_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft']"), 10, "clickable").click()
+        print("Edited")
+        print(time.time() - tim)
+        print("# Wait for The post editing section to disappear")
+
+        wait = WebDriverWait(driver, 10)
+        element = wait.until_not(ec.presence_of_element_located((By.XPATH,"//div[@class='_2dck _4-u3  _57d8']")))
+
+        print("#Save old Reaction and comments from Saved File")
+
+        with open('objs.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
+            pickle.dump([Current_React_Number, Current_Cmnt_Number], f)
+
+        print("#Remove Image")
+
+        os.remove(os.getcwd()+"/magi.png")
+
+    '''except Exception as e:
+                    print(e)
+                    driver.get(PostLink)
+                    sleep(3)'''
