@@ -115,7 +115,7 @@ driver.get(PostLink)
 sleep(4)
 
 print("Start")
-
+driver.save_screenshot("screenshot.png")
 print("# Start checking for Reactions or Comments number changes to update the post")
 
 while(1):
