@@ -34,5 +34,4 @@ SecretStorage==2.3.1
 selenium==3.141.0
 six==1.15.0
 urllib3==1.25.9
-Werkzeug==1.0.1
 yum-metadata-parser==1.1.4
