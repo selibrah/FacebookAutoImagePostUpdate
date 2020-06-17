@@ -82,11 +82,10 @@ def FBLogin():
     pss = input()
     driver.find_element_by_xpath("//*[@id=\"pass\"]")\
         .send_keys(pss)
-
     # Click The login button
     driver.find_element_by_xpath('//*[@id="u_0_b"]')\
         .click()
-
+    goo=input()
 
 def AddTextToImage(Current_React_Number, Current_Cmnt_Number):
     astr = "Had el post fih " + Current_React_Number + " React And " + Current_Cmnt_Number + " Cmnt."
@@ -106,8 +105,13 @@ def AddTextToImage(Current_React_Number, Current_Cmnt_Number):
 print("FBLogin")
 FBLogin()
 sleep(4)
-mynm = waitf((By.XPATH,"//span[@class='_1vp5']"),10,"presence").text
-print(mynm)
+try:
+    mynm = waitf((By.XPATH,"//span[@class='_1vp5']"),10,"presence").text
+    print(mynm)
+except:
+    print("login error")
+    driver.save_screenshot("screenshoterror.png")
+
 
 # Go to the post page
 
@@ -119,24 +123,24 @@ driver.get(PostLink)
 sleep(4)
 
 print("Start")
-driver.save_screenshot("screenshot.png")
+driver.save_screenshot("screenshot1.png")
 print("# Start checking for Reactions or Comments number changes to update the post")
 
 while(1):
     tim = time.time()
     try:
 
-        print("# Get old Reaction and comments from Saved File")
+        #print("# Get old Reaction and comments from Saved File")
 
         with open('objs.pkl','rb') as f:  # Python 3: open(..., 'rb')
             Old_React_Number, Old_Cmnt_Number = pickle.load(f)
         try:
 
-            print("# Get the Current Reactions Number")
+            #print("# Get the Current Reactions Number")
             
             Current_React_Number = waitf((By.CLASS_NAME,"_81hb"),10,"presence").text
             
-            print("# Get the Current Comments Number")
+            #print("# Get the Current Comments Number")
             
             CmntInfo = waitf((By.XPATH,"//a[@class='_3hg- _42ft']"),10,"presence").text
             Current_Cmnt_Number = (CmntInfo.split())[0]
@@ -146,13 +150,13 @@ while(1):
             print(e)
             Current_React_Number = Old_React_Number
             Current_Cmnt_Number = Old_Cmnt_Number
-        print("curent")
-        print(Current_Cmnt_Number)
-        print(Current_React_Number)
-        print("old")
-        print(Old_Cmnt_Number)
-        print(Old_React_Number)
-        print("# Check if The Number of Reaction and Comments is changed")
+        #print("curent")
+        #print(Current_Cmnt_Number)
+        #print(Current_React_Number)
+        #print("old")
+        #print(Old_Cmnt_Number)
+        #print(Old_React_Number)
+        #print("# Check if The Number of Reaction and Comments is changed")
 
         if Current_React_Number != Old_React_Number or Current_Cmnt_Number != Old_Cmnt_Number:
 
