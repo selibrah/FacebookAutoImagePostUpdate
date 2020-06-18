@@ -86,6 +86,7 @@ def FBLogin():
     driver.find_element_by_xpath('//*[@id="u_0_b"]')\
         .click()
     goo=input()
+    driver.get("https://facebook.com")
 
 def AddTextToImage(Current_React_Number, Current_Cmnt_Number):
     astr = "Had el post fih " + Current_React_Number + " React And " + Current_Cmnt_Number + " Cmnt."
@@ -212,4 +213,6 @@ while(1):
         print(e)
         print("errrorr")
         driver.get(PostLink)
-        sleep(3)
+        sleep(4)
+        mynm = waitf((By.XPATH,"//span[@class='_1vp5']"),10,"presence").text
+        print(mynm)
