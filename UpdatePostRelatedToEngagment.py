@@ -30,8 +30,8 @@ chrome_options = webdriver.ChromeOptions()
 
 # Disable notifications and images and others options to make page load faster
 
-prefs = {"profile.default_content_setting_values.notifications" : 2,"profile.managed_default_content_settings.images": 2}
-prefs = {'profile.default_content_setting_values': { 'images': 2,                            'plugins': 2, 'popups': 2, 'geolocation': 2, 
+#prefs = {"profile.default_content_setting_values.notifications" : 2}#,"profile.managed_default_content_settings.images": 2}
+prefs = {'profile.default_content_setting_values': { 'images': 2,'plugins': 2, 'popups': 2, 'geolocation': 2, 
                             'notifications': 2, 'auto_select_certificate': 2, 'fullscreen': 2, 
                             'mouselock': 2, 'mixed_script': 2, 'media_stream': 2, 
                             'media_stream_mic': 2, 'media_stream_camera': 2, 'protocol_handlers': 2, 
@@ -78,15 +78,12 @@ def FBLogin():
         .send_keys("elibrahimi.soufiane@gmail.com")
 
     # Input The PassWord
-    print("Your pass word")
-    pss = input()
+    
     driver.find_element_by_xpath("//*[@id=\"pass\"]")\
-        .send_keys(pss)
+        .send_keys("Sibra161996**")
     # Click The login button
     driver.find_element_by_xpath('//*[@id="u_0_b"]')\
         .click()
-    goo=input()
-
 def AddTextToImage(Current_React_Number, Current_Cmnt_Number):
     astr = "Had el post fih " + Current_React_Number + " React And " + Current_Cmnt_Number + " Cmnt."
     #astr = "This Post Has " + Current_React_Number + " Reactions And " + Current_Cmnt_Number + " Comments."
@@ -115,7 +112,7 @@ except:
 
 # Go to the post page
 
-PostLink = "https://www.facebook.com/sofiane.elibrahimi/posts/1960049930805793"
+PostLink = "https://www.facebook.com/sofiane.elibrahimi/posts/1970298336447619"
 print("go to post")
 
 driver.get(PostLink)
@@ -150,57 +147,34 @@ while(1):
             print(e)
             Current_React_Number = Old_React_Number
             Current_Cmnt_Number = Old_Cmnt_Number
-        #print("curent")
-        #print(Current_Cmnt_Number)
-        #print(Current_React_Number)
-        #print("old")
-        #print(Old_Cmnt_Number)
-        #print(Old_React_Number)
-        #print("# Check if The Number of Reaction and Comments is changed")
 
         if Current_React_Number != Old_React_Number or Current_Cmnt_Number != Old_Cmnt_Number:
 
             print("# Start Updating The Post ")
             
             print("Go")
-
-            print("# Click  The post options button")
-            
-            waitf((By.XPATH,"//a[@class='_4xev _p']"), 10, "clickable").click()
-
-            print("# Click THe Edit post")
-
-            waitf((By.LINK_TEXT,"Edit post"), 10, "clickable").click()
-
-            print("# Edit The Text in the image")
-
+            tic = time.time()
+            driver.get("https://m.facebook.com/sofiane.elibrahimi/posts/1970298336447619")
+            waitf((By.XPATH,"//a[@class='_4s19 sec']"), 5, "clickable").click()
+            waitf((By.XPATH,"//a[@class='_39pi']"), 5, "clickable").click()
+            waitf((By.LINK_TEXT,"More Options"), 5, "clickable").click()
+            waitf((By.LINK_TEXT,"Edit Photo"), 5, "clickable").click()
+            waitf((By.LINK_TEXT,"Delete"), 5, "clickable").click()
+            waitf((By.XPATH,"//button[@class='btn btnC mfss touchable']"), 5, "clickable").click()
+            print("Deleted")
+            driver.get("https://m.facebook.com/sofiane.elibrahimi/posts/1970298336447619")
+            waitf((By.XPATH,"//a[@class='_4s19 sec']"), 5, "clickable").click()
+            waitf((By.LINK_TEXT,"Add photos"), 5, "clickable").click()
+            waitf((By.XPATH,"//button[@class='btn btnI bgb mfss touchable']"), 5, "presence")
             AddTextToImage(Current_React_Number, Current_Cmnt_Number)
-
-            print("# Wait for The post editing section to appear")
-
-            waitf((By.XPATH,"//button[@class='_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft']"), 10, "clickable")
-
-            print("# Upload the image")
-
-            active_ele = driver.find_element_by_xpath("//input[@class='_n _5f0v']")
+            active_ele = driver.find_element_by_xpath("//input[@class='_5scc']")
             active_ele.send_keys(os.getcwd()+"/magi.png")
-
-            print("# Remove The old image")
-
-            element = driver.find_element_by_xpath("//button[@title='Remove photo']")
-            driver.execute_script("arguments[0].click();", element)
-
-            print("# Save the post")
-            waitf((By.XPATH,"//button[@class='_1mf7 _4jy0 _4jy3 _4jy1 _51sy selected _42ft']"), 10, "clickable").click()
-            print("Edited")
-            print(time.time() - tim)
-            print("# Wait for The post editing section to disappear")
-
-            wait = WebDriverWait(driver, 10)
-            element = wait.until_not(ec.presence_of_element_located((By.XPATH,"//div[@class='_2dck _4-u3  _57d8']")))
-
+            waitf((By.XPATH,"//button[@class='btn btnI bgb mfss touchable']"), 5, "clickable").click()
+            print(time.time() - tic)
+            print("Posted")
             print("#Save old Reaction and comments from Saved File")
-
+            driver.get(PostLink)
+            sleep(3)
             with open('objs.pkl', 'wb') as f:  # Python 3: open(..., 'wb')
                 pickle.dump([Current_React_Number, Current_Cmnt_Number], f)
 
@@ -212,6 +186,4 @@ while(1):
         print(e)
         print("errrorr")
         driver.get(PostLink)
-        sleep(4)
-        mynm = waitf((By.XPATH,"//span[@class='_1vp5']"),10,"presence").text
-        print(mynm)
+        sleep(3)
