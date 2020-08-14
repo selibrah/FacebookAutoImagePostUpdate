@@ -80,7 +80,7 @@ def FBLogin():
     # Input The PassWord
     
     driver.find_element_by_xpath("//*[@id=\"pass\"]")\
-        .send_keys("Sibra161996**")
+        .send_keys("*hena7t password diyalek*")
     # Click The login button
     driver.find_element_by_xpath('//*[@id="u_0_b"]')\
         .click()
