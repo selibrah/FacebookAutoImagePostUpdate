@@ -14,7 +14,7 @@ image==1.5.28
 ipaddress==1.0.17
 itsdangerous==1.1.0
 jdcal==1.4.1
-Jinja2==2.11.2
+Jinja2==2.11.3
 keyboard==0.13.5
 keyring==10.6.0
 keyrings.alt==3.0
